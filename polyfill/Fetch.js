@@ -91,7 +91,7 @@ class RNFetchBlobFetchPolyfill {
       }
       statefulPromise.cancel = () => {
         cancelHandler = true
-        if(scopedTask.cancel)
+        if(scopedTask && scopedTask.cancel)
           scopedTask.cancel()
       }
 
