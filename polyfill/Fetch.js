@@ -59,10 +59,14 @@ class RNFetchBlobFetchPolyfill {
       // task.then is not, so we have to extend task.then with progress and
       // cancel function
       let progressHandler, uploadHandler, cancelHandler
+
+      let scopedTask = null
+
       let statefulPromise = promise
           .then((body) => {
             let task = RNFetchBlob.config(config)
-              .fetch(options.method, url, options.headers, body)
+                .fetch(options.method, url, options.headers, body)
+            scopedTask = task
             if(progressHandler)
               task.progress(progressHandler)
             if(uploadHandler)
@@ -87,12 +91,11 @@ class RNFetchBlobFetchPolyfill {
       }
       statefulPromise.cancel = () => {
         cancelHandler = true
-        if(task.cancel)
-          task.cancel()
+        if(scopedTask.cancel)
+          scopedTask.cancel()
       }
 
       return statefulPromise
-
     }
   }
 
