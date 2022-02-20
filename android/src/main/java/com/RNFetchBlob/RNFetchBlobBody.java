@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.net.Uri;
+import android.util.Log;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.BufferedSink;
