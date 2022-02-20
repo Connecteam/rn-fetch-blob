@@ -280,6 +280,12 @@ class RNFetchBlobBody extends RequestBody{
      * @throws IOException
      */
     private void pipeStreamToSink(InputStream stream, BufferedSink sink) throws IOException {
+        try {
+            int available = stream.available();
+            Log.d("RNFB", "pipeStreamToSink available check=" + available);
+        } catch (IOException ex) {
+            return;
+        }
         byte[] chunk = new byte[10240];
         long totalWritten = 0;
         int read;
