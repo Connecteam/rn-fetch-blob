@@ -569,7 +569,11 @@ public class RNFetchBlobReq extends BroadcastReceiver implements Runnable {
 
             // #156 fix cookie issue
             final Request req = builder.build();
-            clientBuilder.dns(new PreferIpV4DnsSelector());
+
+            // This was a workaround when some ISPs had issues connecting, and preferring the IPv4 over the IPv6 addresses
+            // provided on the DNS resolver fixed the issue.
+            // clientBuilder.dns(new PreferIpV4DnsSelector());
+
             registerEventListeners(clientBuilder);
             clientBuilder.addNetworkInterceptor(new Interceptor() {
                 @Override
